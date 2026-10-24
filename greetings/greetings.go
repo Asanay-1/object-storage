@@ -16,6 +16,20 @@ func Hello(name string) (string, error) {
 	message := fmt.Sprintf(randomFormat(), name)
 	return message, nil
 }
+func Hellos(names []string) (map[string]string, error) {
+	// a map to associate names with messages
+	messages := make(map[string]string)
+	// loop through the received slice of names, calling Hello function to get message for each name
+	for _, name := range names {
+		message, err := Hello(name)
+		if err != nil {
+			return nil, err
+		}
+		// in the map associate the retrieved message with the name
+		messages[name] = message
+	}
+	return messages, nil
+}
 
 // randomForamt: return one of a set of greeting message
 func randomFormat() string {
