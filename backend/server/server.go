@@ -22,7 +22,9 @@ func main() {
 			http.NotFound(w, r)
 			return
 		}
+		fmt.Printf("request received\n")
 		fmt.Fprintf(w, "server running")
+		fmt.Printf("respond sent\n")
 	})
 	mux.HandleFunc("GET /api/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-type", "application/json")
@@ -30,7 +32,9 @@ func main() {
 			Message: "server is good",
 			Status:  "OK",
 		}
+		fmt.Printf("request received\n")
 		json.NewEncoder(w).Encode(res)
+		fmt.Printf("respond sent\n")
 	})
 	// configure http server
 	port := ":8080"
