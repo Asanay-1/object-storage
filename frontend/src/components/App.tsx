@@ -1,15 +1,20 @@
 import '../index.css'
 
+
 function App() {
 
 
   return (
     <>
-      <button className="send-request" onClick={SendRequest}>SEND REQUEST</button>
+      <button className="send-request" onClick={SendReq}>SEND REQUEST</button>
     </>
   )
 }
-function SendRequest() {
-    fetch('')
+
+async function SendReq() {
+  const req = await fetch("http://localhost:8080/api/health")
+
+  console.log(req)
 }
+
 export default App

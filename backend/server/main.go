@@ -34,7 +34,7 @@ func main() {
 		}
 		fmt.Printf("request received\n")
 		json.NewEncoder(w).Encode(res)
-		fmt.Printf("respond sent\n")
+		fmt.Printf("Health status sent\n")
 	})
 	// configure http server
 	port := ":8080"
@@ -45,7 +45,7 @@ func main() {
 	// start listen
 	log.Printf("server listening on http://localhost%s\n", port)
 	if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-		log.Fatal("server failed to start")
+		log.Fatal("server failed to start!")
 	}
 
 }
