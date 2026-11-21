@@ -3,6 +3,7 @@ import { useState } from "react"
 function App() {
   const [fileName, setFileName] = useState<string>('or click to browse')
   const [isDragging, setIsDragging] = useState<boolean>(false)
+  const [file, setFile] = useState<File | null>(null)
 
   // file pciker
   const handlePicker = () => {
@@ -13,6 +14,7 @@ function App() {
       const files = target.files
       if (files && files.length > 0) {
         setFileName(files[0].name)
+        setFile(files[0])
       }
     }
     input.click()
@@ -33,14 +35,43 @@ function App() {
     const files = e.dataTransfer?.files
     if (files && files.length > 0) {
       setFileName(files[0].name)
+      setFile(files[0])
     }
   }
+  // button func
+  const handleUpload = async () => {
+    if (!file) {
+      alert("please select file")
+      return
+    }
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+      const res = await fetch(`/api/upload/${fileName}`, {
+        method: "POST",
+        body: formData,
+      })
+      if (!res.ok) {
+        throw new Error(`upload failed: ${res.statusText}`)
+      }
+      const data = await res.json()
+      console.log('success:', data)
+      alert("upload success")
+    } catch (err) {
+      console.error(err)
+      alert("upload error")
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="flex-col">
         {/* send button */}
         <div className="flex justify-end mb-2.5">
-          <button className="font-inter p-1 mt-2.5 border border-white rounded-sm bg-white hover:bg-gray-200 active:scale-95 text-sm">Upload</button>
+          <button 
+           onClick={handleUpload}
+           className="font-inter p-1 mt-2.5 border border-white rounded-sm bg-white hover:bg-gray-200 active:scale-95 text-sm">Upload</button>
         </div>
 
         {/* drag and drop box */}
