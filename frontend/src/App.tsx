@@ -18,15 +18,15 @@ function App() {
     input.click()
   }
   // drag and drop
-  const handleDragOver = (e:React.DragEvent<HTMLElement>) => {
+  const handleDragOver = (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault()
     setIsDragging(true)
   }
-  const handleDragLeave = (e:React.DragEvent<HTMLElement>) => {
+  const handleDragLeave = (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault()
     setIsDragging(false)
   }
-  const handleDrop = (e:React.DragEvent<HTMLElement>) => {
+  const handleDrop = (e: React.DragEvent<HTMLElement>) => {
     e.preventDefault()
     setIsDragging(false)
 
@@ -35,11 +35,16 @@ function App() {
       setFileName(files[0].name)
     }
   }
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="flex-col">
-          {/* drag and drop box */}
-          <section
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="flex-col">
+        {/* send button */}
+        <div className="flex justify-end mb-2.5">
+          <button className="font-inter p-1 mt-2.5 border border-white rounded-sm bg-white hover:bg-gray-200 active:scale-95 text-sm">Upload</button>
+        </div>
+
+        {/* drag and drop box */}
+        <section
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
@@ -52,13 +57,9 @@ function App() {
           <p className="text-sm">Drag and drop files here</p>
           <p className="text-xs text-white/30">{fileName}</p>
         </section>
-        {/* send button */}
-        <div className="flex justify-end mt-2.5">
-          <button className="p-1 mt-2.5 border border-white rounded-sm bg-white hover:bg-gray-200 active:scale-95 font-mono">Send</button>
-        </div>
-        </div>
       </div>
-    )
-  }
+    </div>
+  )
+}
 
-  export default App
+export default App

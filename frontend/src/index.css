@@ -1,4 +1,11 @@
 @import "tailwindcss";
+@theme {
+  --font-mono: "Roboto", sans-serif;
+}
+
+.font-inter {
+  --font-mono: "Inter", sans-serif;
+}
 :root {
   background: #2e2e2e;
 }
