@@ -18,15 +18,15 @@ function App() {
     input.click()
   }
   // drag and drop
-  const handleDragOver = (e:DragEvent) => {
+  const handleDragOver = (e:React.DragEvent<HTMLElement>) => {
     e.preventDefault()
     setIsDragging(true)
   }
-  const handleDragLeave = (e:DragEvent) => {
+  const handleDragLeave = (e:React.DragEvent<HTMLElement>) => {
     e.preventDefault()
     setIsDragging(false)
   }
-  const handleDrop = (e:DragEvent) => {
+  const handleDrop = (e:React.DragEvent<HTMLElement>) => {
     e.preventDefault()
     setIsDragging(false)
 
@@ -38,7 +38,11 @@ function App() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         {/* drag and drop box */}
-        <section className="flex flex-col items-center justify-center w-xl h-96 border-2 border-dashed border-white/40 rounded-xl font-mono text-white/60 gap-3 cursor-pointer hover:border-white/70 hover:text-white/80 transition-colors" onClick={handlePicker}>
+        <section 
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        className={`flex flex-col items-center justify-center w-xl h-96 border-2 border-dashed border-white/40 rounded-xl font-mono text-white/60 gap-3 cursor-pointer ${isDragging ? "border-white text-white bg-white/5" : "hover:border-white/70 hover:text-white/80"}  transition-colors`} onClick={handlePicker}>
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
             <polyline points="17 8 12 3 7 8" />
