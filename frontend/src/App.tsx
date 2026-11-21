@@ -2,8 +2,9 @@ import { useState } from "react"
 
 function App() {
   const [fileName, setFileName] = useState<string>('or click to browse')
+  const [isDragging, setIsDragging] = useState<boolean>(false)
 
-
+  // file pciker
   const handlePicker = () => {
     const input = document.createElement('input')
     input.type = 'file'
@@ -16,8 +17,24 @@ function App() {
     }
     input.click()
   }
+  // drag and drop
+  const handleDragOver = (e:DragEvent) => {
+    e.preventDefault()
+    setIsDragging(true)
+  }
+  const handleDragLeave = (e:DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
+  }
+  const handleDrop = (e:DragEvent) => {
+    e.preventDefault()
+    setIsDragging(false)
 
-
+    const files = e.dataTransfer?.files
+    if (files && files.length > 0) {
+      setFileName(files[0].name)
+    }
+  }
     return (
       <div className="min-h-screen flex items-center justify-center">
         {/* drag and drop box */}
